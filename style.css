@@ -1,0 +1,254 @@
+/* --- 1. CONFIGURACIÓN BASE Y PANTALLA COMPLETA --- */
+:root {
+  --bg-dark: #090a0f;
+  --panel-bg: rgba(13, 17, 23, 0.85);
+  --neon-cyan: #06b6d4;
+  --neon-red: #ff0055;
+  --border-color: #1f2937;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-dark);
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* ¡ESTO ES LO QUE HACÍA FALTA PARA QUE SE VIERA EL MAPA! */
+#map {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1; /* El mapa se queda al fondo */
+}
+
+/* --- 2. HUD FLOTANTE (PANEL IZQUIERDO) --- */
+#tactical-hud {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10; /* El menú se queda arriba del mapa */
+  background: var(--panel-bg);
+  border: 1px solid var(--neon-cyan);
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+  padding: 15px;
+  border-radius: 4px;
+  color: #ffffff;
+  width: 280px;
+  pointer-events: auto;
+  backdrop-filter: blur(4px);
+}
+
+#tactical-hud h2 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: var(--neon-cyan);
+}
+
+#tactical-hud hr {
+  border: 0;
+  border-top: 1px solid var(--border-color);
+  margin-bottom: 10px;
+}
+
+#tactical-hud p {
+  margin: 5px 0;
+  font-size: 12px;
+}
+
+.status-active {
+  color: #10b981;
+  animation: pulse 2s infinite;
+}
+
+.status-danger {
+  color: var(--neon-red);
+  font-weight: bold;
+  animation: parpadeo-rapido 0.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+@keyframes parpadeo-rapido {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+/* --- 3. ESTILOS DE LOS FILTROS TÁCTICOS (CHECKBOXES) --- */
+.separator {
+  margin: 15px 0;
+  border-top: 1px dashed var(--border-color) !important;
+}
+
+#tactical-hud h3 {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.layer-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.control-label {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.control-label input {
+  display: none;
+}
+
+.custom-checkbox {
+  width: 12px;
+  height: 12px;
+  border: 1px solid #4b5563;
+  margin-right: 10px;
+  display: inline-block;
+  transition: all 0.2s;
+}
+
+/* Colores de los botones según el delito */
+.control-label input:checked + .red-box { background: #ff0055; border-color: #ff0055; box-shadow: 0 0 8px #ff0055; }
+.control-label input:checked + .purple-box { background: #a855f7; border-color: #a855f7; box-shadow: 0 0 8px #a855f7; }
+.control-label input:checked + .pink-box { background: #ec4899; border-color: #ec4899; box-shadow: 0 0 8px #ec4899; }
+.control-label input:checked + .orange-box { background: #f97316; border-color: #f97316; box-shadow: 0 0 8px #f97316; }
+
+.control-label input:not(:checked) + .custom-checkbox {
+  opacity: 0.3;
+}
+
+/* --- 4. TIMELINE INFERIOR --- */
+#timeline-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 700px;
+  background: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  padding: 15px 20px;
+  border-radius: 4px;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--neon-cyan);
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 14px;
+}
+
+#play-btn {
+  background: transparent;
+  border: 1px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  padding: 5px 15px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+#play-btn:hover {
+  background: var(--neon-cyan);
+  color: var(--bg-dark);
+}
+
+/* Formateo del Slider para quitar estilo por defecto del navegador */
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: var(--border-color);
+  border-radius: 2px;
+}
+input[type=range]::-webkit-slider-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: var(--neon-red);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -6px;
+  box-shadow: 0 0 10px var(--neon-red);
+  transition: transform 0.1s;
+}
+input[type=range]::-webkit-slider-thumb:hover {
+  transform: scale(1.3);
+}
+
+.timeline-labels {
+  display: flex;
+  justify-content: space-between;
+  color: #9ca3af;
+  font-size: 10px;
+}
+
+/* --- 5. SELECTOR DE MODO (HEATMAP VS PUNTOS) --- */
+.view-toggle {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.view-toggle input[type="radio"] {
+  display: none;
+}
+
+.toggle-btn {
+  flex: 1;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 10px;
+  font-weight: bold;
+  color: #9ca3af;
+  border: 1px solid #4b5563;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 2px;
+}
+
+/* Estado Activo del Botón */
+.view-toggle input[type="radio"]:checked + .toggle-btn {
+  background: rgba(6, 182, 212, 0.2);
+  color: var(--neon-cyan);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 8px rgba(6, 182, 212, 0.4) inset;
+}

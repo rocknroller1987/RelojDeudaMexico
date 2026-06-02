@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terminal de Deuda Subnacional MX</title>
+  <style>
+    body {
+      margin: 0; padding: 0;
+      background-color: #000000; color: #e2e8f0;
+      font-family: 'Courier New', Courier, monospace;
+      overflow: hidden; /* Evita scrolls raros */
+    }
+    .header { text-align: center; padding: 15px; border-bottom: 1px solid #222; }
+    .header h1 { color: #ff0055; margin: 0; letter-spacing: 3px; font-size: 20px; }
+    
+    .WORKSPACE { display: flex; flex-direction: row; height: calc(100vh - 65px); }
+    
+    /* El contenedor donde MapLibre dibujará el mapa */
+    #mapa-financiero { flex: 1.5; background-color: #050505; border-right: 1px solid #222; position: relative; }
+    
+    .DATA-PANEL {
+      flex: 1; padding: 20px; background-color: #000;
+      display: flex; flex-direction: column; gap: 20px;
+      overflow-y: auto; /* Por si la pantalla es chica, que la info baje */
+    }
+    
+    .casilla-debt { background: #050505; border: 1px solid #333; padding: 15px; border-radius: 4px; }
+    .casilla-title { color: #666; font-size: 11px; letter-spacing: 2px; margin-bottom: 8px; }
+    .reloj-digital { font-size: 24px; font-weight: bold; color: #22c55e; font-variant-numeric: tabular-nums; letter-spacing: 1px; }
+    
+    .semaforo-tag { display: inline-block; padding: 3px 8px; font-size: 12px; font-weight: bold; border-radius: 3px; }
+    .tag-rojo { background: rgba(255,0,55,0.2); color: #ff0055; border: 1px solid #ff0055; }
+    .tag-amarillo { background: rgba(234,179,8,0.2); color: #eab308; border: 1px solid #eab308; }
+    .tag-verde { background: rgba(34,197,94,0.2); color: #22c55e; border: 1px solid #22c55e; }
+
+    @media (max-width: 768px) {
+      .WORKSPACE { flex-direction: column; }
+      #mapa-financiero { flex: 1; min-height: 40vh; border-right: none; border-bottom: 1px solid #222; }
+      .DATA-PANEL { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>RELOJ_DE_DEUDA_ESTATAL_MX</h1>
+  </div>
+
+  <div class="WORKSPACE">
+    
+    <div id="mapa-financiero">
+
+      <div id="hud-financiero" style="position: absolute; top: 15px; left: 50%; transform: translateX(-50%); z-index: 10; background: rgba(0,0,0,0.85); color: white; padding: 10px 20px; border-radius: 4px; font-family: monospace; text-align: center; border: 1px solid #ff0055; box-shadow: 0 0 10px rgba(255, 0, 85, 0.3); pointer-events: none; opacity: 0; transition: opacity 0.2s ease-in-out;">
+        <div id="hud-fin-region" style="font-size: 15px; font-weight: bold; letter-spacing: 2px; color: #fff;">ESCANEO...</div>
+        <div id="hud-fin-status" style="font-size: 11px; color: #06b6d4; margin-top: 5px;">INTERCEPTANDO DATOS</div>
+      </div>
+
+    </div>
+    
+    <div class="DATA-PANEL">
+      <div class="casilla-debt" style="border-color: #ff0055;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 18px; font-weight: bold; color: #fff;" id="txt-estado-seleccionado">NUEVO LEÓN</span>
+          <span class="semaforo-tag tag-amarillo" id="tag-semaforo">ALERTA: OBSERVACIÓN</span>
+        </div>
+      </div>
+      <div class="casilla-debt">
+        <div class="casilla-title">DEUDA PÚBLICA ACUMULADA EN VIVO</div>
+        <div class="reloj-digital" id="clk-deuda-total">$0.00</div>
+      </div>
+      <div class="casilla-debt">
+        <div class="casilla-title">VELOCIDAD DEL INTERÉS GENERADO</div>
+        <div style="color: #ff0055; font-size: 20px; font-weight: bold;" id="txt-velocidad">▲ $0.00 pesos / seg</div>
+      </div>
+      <div class="casilla-debt">
+        <div class="casilla-title">CUOTA INDIVIDUAL IMPACTO PER CÁPITA</div>
+        <div class="reloj-digital" style="color: #06b6d4;" id="clk-cuota-ciudadana">$0.00</div>
+      </div>
+      <div class="casilla-debt" style="margin-top: 10px; border-color: #333;">
+        <div class="casilla-title">TOP 5 DEUDORES (MACRO)</div>
+        <div id="lista-ranking" style="font-size: 13px; line-height: 1.8; color: #aaa;">
+          [ PROCESANDO MATRIZ DE RIESGO... ]
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./deuda.js"></script>
+
+</body>
+</html>
