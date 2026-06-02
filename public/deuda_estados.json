@@ -1,0 +1,26 @@
+{
+  "METADATA": {
+    "actualizacion": "2026-05-31",
+    "origen": "SHCP Sistema de Alertas - Registro Público Único"
+  },
+  "CAPA_ESTATAL": [
+    { "id": "CDMX", "nombre": "Ciudad de México", "lat": 19.4326, "lng": -99.1332, "deuda_base": 98500000000, "interes_segundo": 285.50, "poblacion": 9209944, "semaforo": "ROJO" },
+    { "id": "NL", "nombre": "Nuevo León", "lat": 25.6714, "lng": -100.3097, "deuda_base": 65400000000, "interes_segundo": 198.20, "poblacion": 5784442, "semaforo": "ROJO" },
+    { "id": "EDOMEX", "nombre": "Estado de México", "lat": 19.2879, "lng": -99.6532, "deuda_base": 63200000000, "interes_segundo": 185.40, "poblacion": 16992418, "semaforo": "ROJO" },
+    { "id": "CHIH", "nombre": "Chihuahua", "lat": 28.6320, "lng": -106.0691, "deuda_base": 51000000000, "interes_segundo": 155.10, "poblacion": 3741869, "semaforo": "ROJO" },
+    { "id": "VER", "nombre": "Veracruz", "lat": 19.5312, "lng": -96.9159, "deuda_base": 48500000000, "interes_segundo": 140.30, "poblacion": 8062579, "semaforo": "ROJO" },
+    { "id": "COAH", "nombre": "Coahuila", "lat": 25.4232, "lng": -101.0053, "deuda_base": 38200000000, "interes_segundo": 115.60, "poblacion": 3146771, "semaforo": "ROJO" },
+    { "id": "JAL", "nombre": "Jalisco", "lat": 20.6597, "lng": -103.3496, "deuda_base": 34100000000, "interes_segundo": 95.20, "poblacion": 8348151, "semaforo": "AMARILLO" },
+    { "id": "SON", "nombre": "Sonora", "lat": 29.0730, "lng": -110.9559, "deuda_base": 28500000000, "interes_segundo": 80.40, "poblacion": 2944840, "semaforo": "AMARILLO" },
+    { "id": "BC", "nombre": "Baja California", "lat": 32.6245, "lng": -115.4523, "deuda_base": 24300000000, "interes_segundo": 70.10, "poblacion": 3769020, "semaforo": "AMARILLO" },
+    { "id": "QRO", "nombre": "Querétaro", "lat": 20.5888, "lng": -100.3899, "deuda_base": 0, "interes_segundo": 0.00, "poblacion": 2368467, "semaforo": "VERDE" },
+    { "id": "TLAX", "nombre": "Tlaxcala", "lat": 19.3182, "lng": -98.2399, "deuda_base": 0, "interes_segundo": 0.00, "poblacion": 1342977, "semaforo": "VERDE" }
+  ],
+  "CAPA_MUNICIPAL": [
+    { "municipio": "Tijuana", "estado": "BC", "lat": 32.5149, "lng": -117.0382, "deuda_base": 2560000000, "interes_segundo": 7.80, "poblacion": 1922523, "semaforo": "ROJO" },
+    { "municipio": "Monterrey", "estado": "NL", "lat": 25.6866, "lng": -100.3161, "deuda_base": 1920000000, "interes_segundo": 5.90, "poblacion": 1142994, "semaforo": "ROJO" },
+    { "municipio": "Hermosillo", "estado": "SON", "lat": 29.0729, "lng": -110.9559, "deuda_base": 1850000000, "interes_segundo": 5.60, "poblacion": 936263, "semaforo": "ROJO" },
+    { "municipio": "Guadalajara", "estado": "JAL", "lat": 20.6596, "lng": -103.3496, "deuda_base": 1340000000, "interes_segundo": 4.10, "poblacion": 1385629, "semaforo": "AMARILLO" },
+    { "municipio": "Zapopan", "estado": "JAL", "lat": 20.7220, "lng": -103.3918, "deuda_base": 1120000000, "interes_segundo": 3.40, "poblacion": 1476491, "semaforo": "AMARILLO" }
+  ]
+}
