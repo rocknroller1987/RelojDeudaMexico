@@ -1,0 +1,39 @@
+name: 🤖 Extractor Autónomo de Deuda SHCP
+
+# 1. EL DISPARADOR (¿Cuándo se ejecuta?)
+on:
+  schedule:
+    # Se ejecuta el día 1 de cada mes a las 08:00 UTC (02:00 AM hora de México)
+    - cron: '0 8 1 * *'
+  
+  # Botón manual por si quieres forzar la actualización desde la página de GitHub
+  workflow_dispatch:
+
+# 2. LOS TRABAJADORES (¿Qué máquina usa?)
+jobs:
+  actualizar-datos:
+    runs-on: ubuntu-latest # Usamos un servidor Linux gratuito de GitHub
+
+    steps:
+      # Paso A: Descargar tu repositorio al servidor temporal
+      - name: 📥 Clonar Repositorio Táctico
+        uses: actions/checkout@v4
+
+      # Paso B: Instalar el motor de procesamiento
+      - name: ⚙️ Configurar Entorno Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # Paso C: Ejecutar tu script de extracción
+      - name: 🚀 Ejecutar Procesador de Hacienda
+        run: python scripts/extractor_deuda.py
+
+      # Paso D: Si los datos cambiaron, guardar y empujar a producción
+      - name: 💾 Guardar y Desplegar (Auto-Commit)
+        run: |
+          git config --global user.name 'Robot rocknroller1987'
+          git config --global user.email 'robot@rocknroller1987.local'
+          git add public/deuda_estados.json
+          # Si no hay cambios, no hace nada. Si hay, hace commit y push.
+          git diff --quiet && git diff --staged --quiet || (git commit -m "⚙️ Actualización automática: Datos SHCP al día" && git push)
